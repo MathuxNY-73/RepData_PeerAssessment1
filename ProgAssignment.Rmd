@@ -64,7 +64,10 @@ png(filename="figure/steps_histogram.png")
 stepsPerDayDf <- as.data.frame(stepsPerDay)
 maxStepPerDay <- max(stepsPerDayDf$steps)
 g <- ggplot(stepsPerDayDf, aes(steps)) +
-  geom_histogram(binwidth = ceiling(maxStepPerDay / 5))
+  geom_histogram(binwidth = ceiling(maxStepPerDay / 8)) +
+  labs(title= "Distribution of the # of steps",
+       x = "# of steps",
+       y = "Number of occurences")
 g
 dev.off()
 ```
@@ -177,7 +180,10 @@ png(filename="figure/steps_histogram_filled_first_option.png")
 stepsPerDayFilledDf <- as.data.frame(stepsPerDayFilled)
 maxStepPerDay <- max(stepsPerDayFilledDf$steps)
 g <- ggplot(stepsPerDayFilledDf, aes(steps)) +
-  geom_histogram(binwidth = ceiling(maxStepPerDay / 5))
+  geom_histogram(binwidth = ceiling(maxStepPerDay / 8)) +
+  labs(title= "Distribution of the # of steps",
+       x = "# of steps",
+       y = "Number of occurences")
 g
 dev.off()
 ```
@@ -235,7 +241,10 @@ png(filename="figure/steps_histogram_filled_second_option.png")
 stepsPerDayFilledDf <- as.data.frame(stepsPerDayFilled)
 maxStepPerDay <- max(stepsPerDayFilledDf$steps)
 g <- ggplot(stepsPerDayFilledDf, aes(steps)) +
-  geom_histogram(binwidth = ceiling(maxStepPerDay / 5))
+  geom_histogram(binwidth = ceiling(maxStepPerDay / 8)) +
+  labs(title= "Distribution of the # of steps",
+       x = "# of steps",
+       y = "Number of occurences")
 g
 dev.off()
 ```

@@ -181,7 +181,10 @@ png(filename=&quot;figure/steps_histogram.png&quot;)
 stepsPerDayDf &lt;- as.data.frame(stepsPerDay)
 maxStepPerDay &lt;- max(stepsPerDayDf$steps)
 g &lt;- ggplot(stepsPerDayDf, aes(steps)) +
-  geom_histogram(binwidth = ceiling(maxStepPerDay / 5))
+  geom_histogram(binwidth = ceiling(maxStepPerDay / 8)) +
+  labs(title= &quot;Distribution of the # of steps&quot;,
+       x = &quot;# of steps&quot;,
+       y = &quot;Number of occurences&quot;)
 g
 dev.off()</code></pre>
 </div>
@@ -294,7 +297,10 @@ head(stepsPerDayFilled)</code></pre>
 stepsPerDayFilledDf &lt;- as.data.frame(stepsPerDayFilled)
 maxStepPerDay &lt;- max(stepsPerDayFilledDf$steps)
 g &lt;- ggplot(stepsPerDayFilledDf, aes(steps)) +
-  geom_histogram(binwidth = ceiling(maxStepPerDay / 5))
+  geom_histogram(binwidth = ceiling(maxStepPerDay / 8)) +
+  labs(title= &quot;Distribution of the # of steps&quot;,
+       x = &quot;# of steps&quot;,
+       y = &quot;Number of occurences&quot;)
 g
 dev.off()</code></pre>
 <p>Those zeros add bias to the data. We want to avoid that. Let us have a look at the distribution of the NA values in the data.</p>
@@ -341,7 +347,10 @@ stepsPerDayFilled &lt;- apply(data, 2, function(x) tapply(x, dates, sum))</code>
 stepsPerDayFilledDf &lt;- as.data.frame(stepsPerDayFilled)
 maxStepPerDay &lt;- max(stepsPerDayFilledDf$steps)
 g &lt;- ggplot(stepsPerDayFilledDf, aes(steps)) +
-  geom_histogram(binwidth = ceiling(maxStepPerDay / 5))
+  geom_histogram(binwidth = ceiling(maxStepPerDay / 8)) +
+  labs(title= &quot;Distribution of the # of steps&quot;,
+       x = &quot;# of steps&quot;,
+       y = &quot;Number of occurences&quot;)
 g
 dev.off()</code></pre>
 <p>Again the shape of this histogram is much closer to the one when we simply omitted the NAs.</p>
