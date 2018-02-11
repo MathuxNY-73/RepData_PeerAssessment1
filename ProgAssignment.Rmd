@@ -58,15 +58,17 @@ median(stepsPerDay[,1])
 A picture is worth a million words thus let us create an Histogram of the steps per day variable.  
 As to know what is the difference between a bar plot and a histogram, in bar plot columns are positioned over a label that represents a categorical variable whereas in a histogram columns are positioned over a label that represents a continuous, quantitative variable.
 
-```{r histogram_stepsperday, ECHO=TRUE}
+```{r histogram_stepsperday, ECHO=TRUE, results=FALSE}
 library(ggplot2)
+png(filename="figure/steps_histogram.png")
 stepsPerDayDf <- as.data.frame(stepsPerDay)
 maxStepPerDay <- max(stepsPerDayDf$steps)
 g <- ggplot(stepsPerDayDf, aes(steps)) +
   geom_histogram(binwidth = ceiling(maxStepPerDay / 5))
 g
+dev.off()
 ```
-
+ 
 ## Average daily activity pattern
 
 Let us compute the average number of steps taken during each interval accross all days.
@@ -87,13 +89,14 @@ summary(stepsPerIntervalDf)
 ```
 
 Let us now draw the time series of the average number of steps taken during intervals accross all days
-```{r time_serie, echo=TRUE}
+```{r time_serie, echo=TRUE, results=FALSE}
 grahDf <- data.frame(stepsPerIntervalDf)
 max_interval <- stepsPerIntervalDf[which.max(stepsPerIntervalDf$steps),]$interval
 grahDf$highlight <- ifelse(grahDf$interval == max_interval, "highlight", "normal")
 mycolours <- c("highlight" = "red", "normal" = "black")
 
-ggplot(grahDf, aes(interval, steps)) +
+png(filename="figure/activity_pattern.png")
+g <- ggplot(grahDf, aes(interval, steps)) +
   geom_point(size = 1, aes(colour = highlight)) +
   scale_color_manual("Status", values = mycolours) +
   theme(legend.position = "none") +
@@ -101,6 +104,8 @@ ggplot(grahDf, aes(interval, steps)) +
        x = "Interval",
        y = "Average number of steps") +
   geom_line()
+g
+dev.off()
 ```
 
 
@@ -167,12 +172,14 @@ median(stepsPerDayFilled[,1])
 We can see that this method changed the mean and median a lot compared to the data frame with NA omitted.
 
 When taking a look at the histogram of the number of steps, we can see that a lot of 0s were added.
-```{r hist_filled_NA_per_day, echo=TRUE}
+```{r hist_filled_NA_per_day, echo=TRUE, results=FALSE}
+png(filename="figure/steps_histogram_filled_first_option.png")
 stepsPerDayFilledDf <- as.data.frame(stepsPerDayFilled)
 maxStepPerDay <- max(stepsPerDayFilledDf$steps)
 g <- ggplot(stepsPerDayFilledDf, aes(steps)) +
   geom_histogram(binwidth = ceiling(maxStepPerDay / 5))
 g
+dev.off()
 ```
 
 Those zeros add bias to the data. We want to avoid that. Let us have a look at the distribution of the NA values in the data.
@@ -223,12 +230,14 @@ median(stepsPerDayFilled[,1])
 The results are now closer to the results we had with the data where NAs where omitted.
 
 Let us have a visualisation of the NA filling
-```{r hist_filled_NA_per_day_second_option, echo=TRUE}
+```{r hist_filled_NA_per_day_second_option, echo=TRUE, results=FALSE}
+png(filename="figure/steps_histogram_filled_second_option.png")
 stepsPerDayFilledDf <- as.data.frame(stepsPerDayFilled)
 maxStepPerDay <- max(stepsPerDayFilledDf$steps)
 g <- ggplot(stepsPerDayFilledDf, aes(steps)) +
   geom_histogram(binwidth = ceiling(maxStepPerDay / 5))
 g
+dev.off()
 ```
 Again the shape of this histogram is much closer to the one when we simply omitted the NAs.
 
@@ -252,7 +261,8 @@ summary(stepsPerIntervalPerWeekdayDf)
 ```
 
 Finally, let us draw the graphs with 2 facets that shows the pattern of activity across all days depending on their type.
-```{r time_serie_per_weekday, ECHO=TRUE}
+```{r time_serie_per_weekday, ECHO=TRUE, results=FALSE}
+png(filename="figure/weekday_activity_pattern.png")
 ggplot(stepsPerIntervalPerWeekdayDf, aes(interval, mean_steps)) +
   facet_grid(weekday ~ .) +
   theme(legend.position = "none") +
@@ -260,5 +270,6 @@ ggplot(stepsPerIntervalPerWeekdayDf, aes(interval, mean_steps)) +
        x = "Interval",
        y = "Average number of steps") +
   geom_line()
+dev.off()
 ```
 
